@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { assets, dashboard_data } from "../../assets/assets";
+import { assets } from "../../assets/assets";
 import BlogTableItem from "../../components/admin/BlogTableItem";
 import { useAppContext } from "../../context/AppContext";
 import toast from "react-hot-toast";
@@ -96,7 +96,7 @@ const Dashboard = () => {
                   <BlogTableItem
                     key={blog._id}
                     blog={blog}
-                    fetchBlog={fetchDashboard}
+                    fetchBlogs={fetchDashboard}
                     index={index + 1}
                   />
                 );

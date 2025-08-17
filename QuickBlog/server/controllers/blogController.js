@@ -82,20 +82,14 @@ export const deleteBlogById = async (req, res) => {
 }
 
 export const togglePublish = async (req, res) => {
-  console.log("BC Step 1");
   
   try {
-    console.log("BC Step 2");
     const {id} = req.body;
-    console.log("BC Step 3");
     const blog = await Blog.findById(id);
     blog.isPublished = !blog.isPublished;
-    console.log("BC Step 4");
     await blog.save();
     res.json({success: true, message: "Blog status updated"})
-    console.log("BC Step 5");
   } catch (error) {
-    console.log("BC Step ");
     res.json({success: false, message: error.message})
   }
 }

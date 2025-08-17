@@ -79,5 +79,5 @@ const BlogTableItem = ({ blog, fetchBlogs, index }) => {
     </tr>
   );
 };
-
+//just comm
 export default BlogTableItem;

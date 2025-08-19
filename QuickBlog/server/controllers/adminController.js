@@ -67,7 +67,7 @@ export const approveCommentById = async (req, res) => {
   try {
     const {id} = req.body;
     await Comment.findByIdAndUpdate(id, {isApproved: true});
-    res.json({success: true, message: "Comment Approved successfully"})
+    res.json({success: true, message: "Comment Approved successfully"})  
   } catch (error) {
     res.json({success: false, message: error.message})
   }

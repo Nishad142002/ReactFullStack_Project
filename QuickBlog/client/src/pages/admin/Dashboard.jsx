@@ -12,11 +12,13 @@ const Dashboard = () => {
     recentBlogs: [],
   });
 
-  const { axios } = useAppContext();
+  const { axios, guest } = useAppContext();
 
   const fetchDashboard = async () => {
     try {
-      const { data } = await axios.get("/api/admin/dashboard");
+      const { data } = await axios.get("/api/admin/dashboard", {
+        params: { isGuest: guest ? "true" : "false" },
+      });
       data.success
         ? setDashboardData(data.dashboardData)
         : toast.error(data.message);

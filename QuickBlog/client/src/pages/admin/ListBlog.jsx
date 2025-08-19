@@ -6,11 +6,13 @@ import toast from "react-hot-toast";
 
 const ListBlog = () => {
   const [blogs, setBlogs] = useState([]);
-  const { axios } = useAppContext();
+  const { axios, guest } = useAppContext();
 
   const fetchBlogs = async () => {
     try {
-      const { data } = await axios.get("/api/admin/blogs");
+      const { data } = await axios.get("/api/admin/blogs", {
+        params: { isGuest: guest ? "true" : "false" },
+      });
       if (data.success) {
         setBlogs(data.blogs);
       } else {

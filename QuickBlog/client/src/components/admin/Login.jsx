@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useAppContext } from "../../context/AppContext";
 import toast from "react-hot-toast";
 
 const Login = () => {
-  const { axios, setToken } = useAppContext();
+  const { axios, setToken, setGuest } = useAppContext();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -25,6 +26,10 @@ const Login = () => {
     } catch (error) {
       toast.error(error.message);
     }
+  };
+
+  const handleGuest = () => {
+    setGuest(true);
   };
 
   return (
@@ -71,7 +76,18 @@ const Login = () => {
             >
               Login
             </button>
+            <div className="w-full flex items-center justify-center">
+              <hr className="w-full font-medium ml-1 mr-1 text-gray-400" />
+              or
+              <hr className="w-full font-medium ml-1 mr-1 text-gray-400" />
+            </div>
           </form>
+          <button
+            onClick={handleGuest}
+            className="w-full mt-1 py-3 font-medium bg-primary text-white rounded cursor-pointer hover:bg-primary/90 transition-all"
+          >
+            Login as Guest
+          </button>
         </div>
       </div>
     </div>

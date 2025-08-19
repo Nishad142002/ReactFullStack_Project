@@ -7,18 +7,24 @@ const CommentTableItem = ({ comment, fetchComments }) => {
   const { blog, createdAt, _id } = comment;
   const BlogDate = new Date(createdAt);
 
-  const { axios } = useAppContext();
+  const { axios, guest } = useAppContext();
 
   const approveComment = async () => {
     try {
-      const { data } = await axios.post("/api/admin/approve-comment", {
-        id: _id,
-      });
-      if (data.success) {
-        toast.success(data.message);
-        fetchComments();
+      if (!guest) {
+        const { data } = await axios.post("/api/admin/approve-comment", {
+          id: _id,
+        });
+        if (data.success) {
+          toast.success(data.message);
+          fetchComments();
+        } else {
+          toast.error(data.message);
+        }
       } else {
-        toast.error(data.message);
+        toast.error(
+          "As a guest, you have read-only access to the dashboard. Thanks for understanding!"
+        );
       }
     } catch (error) {
       toast.error(error.message);
@@ -27,18 +33,24 @@ const CommentTableItem = ({ comment, fetchComments }) => {
 
   const deleteComment = async () => {
     try {
-      const confirm = window.confirm(
-        "Are you sure you want to delete this comment ?"
-      );
-      if (!confirm) return;
-      const { data } = await axios.post("/api/admin/delete-comment", {
-        id: _id,
-      });
-      if (data.success) {
-        toast.success(data.message);
-        fetchComments();
+      if (!guest) {
+        const confirm = window.confirm(
+          "Are you sure you want to delete this comment ?"
+        );
+        if (!confirm) return;
+        const { data } = await axios.post("/api/admin/delete-comment", {
+          id: _id,
+        });
+        if (data.success) {
+          toast.success(data.message);
+          fetchComments();
+        } else {
+          toast.error(data.message);
+        }
       } else {
-        toast.error(data.message);
+        toast.error(
+          "As a guest, you have read-only access to the dashboard. Thanks for understanding!"
+        );
       }
     } catch (error) {
       toast.error(error.message);

@@ -7,18 +7,24 @@ const BlogTableItem = ({ blog, fetchBlogs, index }) => {
   const { title, createdAt } = blog;
   const BlogDate = new Date(createdAt);
 
-  const { axios } = useAppContext();
+  const { axios, guest } = useAppContext();
 
   const deleteBlog = async () => {
-    const confirm = window.confirm(
-      "Are you sure you want to delete this blog ?"
-    );
-    if (!confirm) {
-      return;
+    if (!guest) {
+      console.log("frontend - " + guest);
+      const confirm = window.confirm(
+        "Are you sure you want to delete this blog ?"
+      );
+      if (!confirm) {
+        return;
+      }
     }
 
     try {
-      const { data } = await axios.post("/api/blog/delete", { id: blog._id });
+      const { data } = await axios.post("/api/blog/delete", {
+        id: blog._id,
+        isGuest: guest,
+      });
 
       if (data.success) {
         toast.success(data.message);
@@ -35,6 +41,7 @@ const BlogTableItem = ({ blog, fetchBlogs, index }) => {
     try {
       const { data } = await axios.post("/api/blog/toggle-publish", {
         id: blog._id,
+        isGuest: guest,
       });
 
       if (data.success) {

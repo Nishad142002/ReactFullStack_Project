@@ -83,13 +83,15 @@ const Blog = () => {
           {data.title}
         </h1>
         <h2 className="my-5 max-w-lg truncate mx-auto">{data.subTitle}</h2>
-        <p className="inline-block py-1 px-4 rounded-full mb-6 border text-sm border-primary/35 bg-primary/5 font-medium text-primary">
+        {/**<p className="inline-block py-1 px-4 rounded-full mb-6 border text-sm border-primary/35 bg-primary/5 font-medium text-primary">
           Michoel Brown
-        </p>
+        </p>**/}
       </div>
 
       <div className="mx-5 max-w-5xl md:mx-auto my-10 mt-6">
-        <img src={data.image} alt="" className="rounded-3xl mb-5" />
+        <div className="m-auto max-w-4xl">
+          <img src={data.image} alt="" className="rounded-3xl mb-5" />
+        </div>
 
         <div
           className="rich-text max-w-3xl mx-auto"

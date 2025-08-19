@@ -14,14 +14,14 @@ import { useAppContext } from "./context/AppContext";
 
 //6.15.03
 const App = () => {
-  const { token } = useAppContext();
+  const { token, guest } = useAppContext();
   return (
     <div>
       <Toaster />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/blog/:id" element={<Blog />} />
-        <Route path="/admin" element={token ? <Layout /> : <Login />}>
+        <Route path="/admin" element={token || guest ? <Layout /> : <Login />}>
           <Route index element={<Dashboard />} />
           <Route path="/admin/addBlog" element={<AddBlog />} />
           <Route path="/admin/listBlog" element={<ListBlog />} />

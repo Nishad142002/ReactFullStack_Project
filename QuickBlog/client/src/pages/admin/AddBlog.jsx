@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { parse } from "marked";
 
 const AddBlog = () => {
-  const { axios } = useAppContext();
+  const { axios, guest } = useAppContext();
   const [isAdding, setIsAdding] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -40,8 +40,15 @@ const AddBlog = () => {
   };
 
   const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    if (!image) return toast.error("Please add image");
     try {
-      e.preventDefault();
+      if (guest) {
+        return toast.error(
+          "As a guest, you have read-only access to the dashboard. Thanks for understanding!"
+        );
+      }
+
       setIsAdding(true);
 
       const blog = {
@@ -101,7 +108,6 @@ const AddBlog = () => {
             type="file"
             id="image"
             hidden
-            required
           />
         </label>
 
